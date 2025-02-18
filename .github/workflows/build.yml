@@ -9,14 +9,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "23"
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -24,7 +24,7 @@ jobs:
         run: |
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         name: Setup pnpm cache
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
@@ -47,9 +47,9 @@ jobs:
 
         # Documentation: https://github.com/peaceiris/actions-gh-pages
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_dir: ./dist
           # Makes it so the md files in the previous step get processed by GitHub Pages
           enable_jekyll: true
